@@ -5,7 +5,6 @@ import "./DJBooth.css";
  * Original SVG DJ booth with:
  *  - two spinning vinyl decks + a mixer (all hand-drawn SVG, no stock art)
  *  - three original, self-generated loops you can switch between
- *  - pointer parallax (the booth tilts toward the cursor for depth)
  *  - a pad-hit reaction driven by a keyed CSS animation (no setState-in-effect)
  *
  * `pulse` is a counter bumped by the parent on every pad hit.
@@ -19,10 +18,8 @@ const TRACKS = [
 
 export default function DJBooth({ pulse = 0 }) {
   const audioRef = useRef(null);
-  const wrapRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [trackIdx, setTrackIdx] = useState(0);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const track = TRACKS[trackIdx];
 
@@ -64,36 +61,13 @@ export default function DJBooth({ pulse = 0 }) {
     }
   }
 
-  // Pointer parallax — map cursor position to a small tilt.
-  function onMove(e) {
-    const el = wrapRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5; // -0.5..0.5
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    setTilt({ x: px * 10, y: py * -8 }); // degrees
-  }
-  function resetTilt() {
-    setTilt({ x: 0, y: 0 });
-  }
-
   return (
-    <div
-      ref={wrapRef}
-      className="booth"
-      onMouseMove={onMove}
-      onMouseLeave={resetTilt}
-    >
+    <div className="booth">
       {pulse > 0 && (
         <span key={pulse} className="booth__pulse" aria-hidden="true" />
       )}
 
-      <div
-        className={`booth__stage ${playing ? "booth--live" : ""}`}
-        style={{
-          transform: `perspective(900px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
-        }}
-      >
+      <div className={`booth__stage ${playing ? "booth--live" : ""}`}>
         <svg
           viewBox="0 0 520 240"
           className="booth__svg"
@@ -189,6 +163,7 @@ export default function DJBooth({ pulse = 0 }) {
       <div className="booth__controls">
         <button
           className="booth__play"
+          type="button"
           onClick={toggle}
           aria-pressed={playing}
           aria-label={playing ? "Pause the track" : "Play the track"}
@@ -201,6 +176,7 @@ export default function DJBooth({ pulse = 0 }) {
           {TRACKS.map((tk, i) => (
             <button
               key={tk.id}
+              type="button"
               className={`booth__trackbtn ${i === trackIdx ? "is-active" : ""}`}
               onClick={() => selectTrack(i)}
               aria-pressed={i === trackIdx}

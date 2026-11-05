@@ -60,14 +60,11 @@ export default function Deck({ onHit }) {
   useEffect(() => {
     const full = TICKER[tickerIdx];
     let i = 0;
-    let typing = true;
     const interval = setInterval(() => {
-      if (typing) {
-        setTickerText(full.slice(0, i + 1));
-        i += 1;
-        if (i >= full.length) {
-          typing = false;
-        }
+      i += 1;
+      setTickerText(full.slice(0, i));
+      if (i >= full.length) {
+        clearInterval(interval); // stop once fully typed — no runaway timer
       }
     }, 90);
     const hold = setTimeout(() => {
@@ -97,6 +94,7 @@ export default function Deck({ onHit }) {
         {PADS.map((pad) => (
           <button
             key={pad.n}
+            type="button"
             className={`pad ${active === pad.n ? "pad--hit" : ""}`}
             style={{ "--pad-color": pad.color }}
             onClick={() => hit(pad)}
