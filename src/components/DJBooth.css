@@ -1,0 +1,205 @@
+.booth {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ---- 3D stage: tilts toward the cursor ---- */
+.booth__stage {
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+}
+
+.booth__svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+}
+
+/* ---- Depth: turntables float forward, mixer sits back ---- */
+.booth__deck--front {
+  transform: translateZ(26px);
+}
+.booth__mixer {
+  transform: translateZ(-14px);
+}
+
+/* ---- Platters: paused by default, spin when live ---- */
+.booth__platter {
+  animation: spin 2.2s linear infinite;
+  animation-play-state: paused;
+}
+.booth__platter--r {
+  animation-duration: 2.6s;
+}
+.booth--live .booth__platter {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Tonearms drop onto the record while live ---- */
+.booth__arm {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.booth--live .booth__arm--l {
+  transform: rotate(26deg);
+}
+.booth--live .booth__arm--r {
+  transform: rotate(24deg);
+}
+
+/* ---- VU meter animates only when live ---- */
+.booth__vu rect {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(0.3);
+}
+.booth--live .booth__vu rect {
+  animation: vu 0.6s ease-in-out infinite alternate;
+}
+@keyframes vu {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---- Pad-hit reaction ----
+   The keyed .booth__pulse element restarts these animations on every hit. */
+.booth__pulse {
+  position: absolute;
+  width: 0;
+  height: 0;
+  animation: boothPulse 0.26s ease;
+}
+@keyframes boothPulse {
+  0%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.booth__pulse ~ .booth__stage .booth__fader--a {
+  animation: twitchUp 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.booth__pulse ~ .booth__stage .booth__fader--b {
+  animation: twitchDown 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.booth__pulse ~ .booth__stage .booth__xfader {
+  animation: twitchX 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes twitchUp {
+  50% {
+    transform: translateY(-7px);
+  }
+}
+@keyframes twitchDown {
+  50% {
+    transform: translateY(6px);
+  }
+}
+@keyframes twitchX {
+  50% {
+    transform: translateX(11px);
+  }
+}
+
+/* ---- Controls ---- */
+.booth__controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.booth__play {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: #0a0a12;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.booth__play:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(255, 211, 78, 0.45);
+}
+.booth__play:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.booth__playicon {
+  font-size: 12px;
+}
+
+/* ---- Track selector pills ---- */
+.booth__tracks {
+  display: inline-flex;
+  gap: 6px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  padding: 4px;
+}
+.booth__trackbtn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  padding: 6px 12px;
+  border-radius: 999px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.booth__trackbtn:hover {
+  color: var(--text);
+}
+.booth__trackbtn.is-active {
+  background: var(--accent-2);
+  color: #fff;
+}
+.booth__trackbtn:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+.booth__meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .booth__tracks {
+    order: 3;
+  }
+}
+
+/* Respect reduced motion: no spin, no tilt transitions, no VU pulsing. */
+@media (prefers-reduced-motion: reduce) {
+  .booth__stage {
+    transition: none;
+  }
+  .booth--live .booth__platter,
+  .booth--live .booth__vu rect {
+    animation: none;
+  }
+}
