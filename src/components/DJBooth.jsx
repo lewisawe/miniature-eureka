@@ -16,7 +16,14 @@ const TRACKS = [
   { id: "afterburner", label: "Afterburner", src: "/track-afterburner.mp3" },
 ];
 
-export default function DJBooth({ pulse = 0 }) {
+// Theme crossfader stops (order matters for the slider cap position).
+const THEME_STOPS = [
+  { id: "deepspace", label: "Deep Space", color: "#ffd34e" },
+  { id: "nebula", label: "Nebula", color: "#c66bff" },
+  { id: "sunset", label: "Sunset", color: "#ff8a3d" },
+];
+
+export default function DJBooth({ pulse = 0, theme = "deepspace", setTheme }) {
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [trackIdx, setTrackIdx] = useState(0);
@@ -190,6 +197,40 @@ export default function DJBooth({ pulse = 0 }) {
       <p className="booth__meta">
         “{track.label}” · original loop, generated in code
       </p>
+
+      {/* Crossfader = theme switcher (DJ metaphor doubles as the theme control) */}
+      <div
+        className="xfade"
+        role="group"
+        aria-label="Crossfade the site theme"
+      >
+        <span className="xfade__label">THEME</span>
+        <div className="xfade__track">
+          {THEME_STOPS.map((stop) => (
+            <button
+              key={stop.id}
+              type="button"
+              className={`xfade__stop ${theme === stop.id ? "is-active" : ""}`}
+              style={{ "--xf": stop.color }}
+              onClick={() => setTheme && setTheme(stop.id)}
+              aria-pressed={theme === stop.id}
+              aria-label={`Switch to ${stop.label} theme`}
+            >
+              <span className="xfade__dot" />
+              <span className="xfade__name">{stop.label}</span>
+            </button>
+          ))}
+          <span
+            className="xfade__cap"
+            style={{
+              left: `calc(4px + ${
+                THEME_STOPS.findIndex((s) => s.id === theme)
+              } * ((100% - 8px) / 3))`,
+            }}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
 
       <audio ref={audioRef} src={track.src} loop preload="none" />
     </div>

@@ -33,6 +33,17 @@ export default function Starfield() {
       hue: Math.random() > 0.85 ? "accent" : "white",
     }));
 
+    // Accent star color follows the active theme's --star variable.
+    const rootStyle = getComputedStyle(document.documentElement);
+    const starRef = { rgb: rootStyle.getPropertyValue("--star").trim() || "255, 211, 78" };
+    // Re-read occasionally so theme switches are picked up without per-frame cost.
+    const themePoll = setInterval(() => {
+      starRef.rgb =
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--star")
+          .trim() || starRef.rgb;
+    }, 500);
+
     function draw(t) {
       ctx.clearRect(0, 0, size.width, size.height);
       for (const s of stars) {
@@ -42,7 +53,7 @@ export default function Starfield() {
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         if (s.hue === "accent") {
-          ctx.fillStyle = `rgba(255, 211, 78, ${twinkle})`;
+          ctx.fillStyle = `rgba(${starRef.rgb}, ${twinkle})`;
         } else {
           ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
         }
@@ -64,6 +75,7 @@ export default function Starfield() {
 
     return () => {
       cancelAnimationFrame(raf.id);
+      clearInterval(themePoll);
       window.removeEventListener("resize", handleResize);
     };
   }, []);

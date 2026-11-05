@@ -150,3 +150,14 @@ export const contact = {
   kicker: "CONTACT",
   sub: "Open to internships, collabs, and good playlists.",
 };
+
+// Hidden "B-side" — unlocked by the Konami code. Keep these real and fun.
+export const bside = {
+  facts: [
+    "Before cloud, I coordinated COVID-19 emergency response for a whole county at the Red Cross.",
+    "I once recovered an accounting firm from ransomware in 24 hours — no ransom paid.",
+    "One of my projects parses electricity-token SMS in English, Swahili, and Sheng.",
+    "Two-time hackathon winner, and yes, I think incident response is genuinely fun.",
+    "The hint: there was never really a space DJ. There is a cloud engineer who likes a good drop.",
+  ],
+};

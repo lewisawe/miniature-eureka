@@ -1,4 +1,5 @@
-:root {
+:root,
+:root[data-theme="deepspace"] {
   --bg: #07070f;
   --bg-soft: #0d0d1a;
   --panel: rgba(255, 255, 255, 0.04);
@@ -7,6 +8,7 @@
   --text-dim: #a6a6bd;
   --accent: #ffd34e;
   --accent-2: #7c6cff;
+  --star: 255, 211, 78; /* rgb of accent, for the starfield */
   --pad-1: #ffd34e;
   --pad-2: #5b7cff;
   --pad-3: #ff5e7e;
@@ -15,6 +17,28 @@
   --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --maxw: 1100px;
+}
+
+/* ---- Theme: Nebula (violet / magenta) ---- */
+:root[data-theme="nebula"] {
+  --bg: #0b0718;
+  --bg-soft: #140a28;
+  --text: #f5f1ff;
+  --text-dim: #b7a8d6;
+  --accent: #c66bff;
+  --accent-2: #4ad6ff;
+  --star: 198, 107, 255;
+}
+
+/* ---- Theme: Sunset (orange / pink) ---- */
+:root[data-theme="sunset"] {
+  --bg: #120a0c;
+  --bg-soft: #20110f;
+  --text: #fff4ec;
+  --text-dim: #d8b3a6;
+  --accent: #ff8a3d;
+  --accent-2: #ff5e7e;
+  --star: 255, 138, 61;
 }
 
 * {
@@ -34,6 +58,7 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
 a {
