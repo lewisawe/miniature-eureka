@@ -11,7 +11,7 @@ export const profile = {
   name: "Lewis Sawe",
   tagline: "Cloud by day, aspiring space DJ by night",
   blurb:
-    "Network & Systems Administrator and DevOps engineer from Kenya. I build and secure cloud infrastructure for a living, and I mix AWS services like tracks. This whole site runs on AWS.",
+    "Cloud, DevOps, and security builder from Kenya. I mix AWS services like tracks — and this whole site runs on AWS.",
   githubUrl: "https://github.com/lewisawe",
   linkedinUrl: "https://linkedin.com/in/lewisawe",
   resumeUrl: "", // add a PDF link if you want a Resume button
@@ -20,10 +20,15 @@ export const profile = {
 export const about = {
   heading: "About",
   kicker: "SOUNDCHECK",
-  paragraphs: [
-    "I'm Lewis Sawe, a Network and Systems Administrator and DevOps engineer based in Kenya. I'm the one-person IT department at an IT solutions provider, serving SME clients like restaurants, retail shops, chemists, and bars. I assess what a client needs, design the solution, deploy it, and train their staff to use it.",
-    "Before that I supported 15 independent client sites as a contractor, did a DevOps internship focused on AWS cost optimization and CI/CD, and spent three years at Kenya Red Cross in communication and COVID response. That mix is why I can explain a firewall to a shop owner and still hold my own in a build pipeline.",
-    "I hold a BSc in Information Sciences from Moi University and I'm an AWS Community Builder. Off the clock I'm an aspiring space DJ. Give me a starfield and a good set and I'm happy.",
+  intro:
+    "I'm Lewis Sawe — a cloud, DevOps, and security enthusiast from Kenya who treats AWS like a mixing board.",
+  facts: [
+    { label: "Name", value: "Lewis Sawe" },
+    { label: "Location", value: "Kenya (EAT / UTC+3)" },
+    { label: "Education", value: "BSc Information Sciences, Moi University" },
+    { label: "Focus", value: "Cloud, DevOps, and security on AWS" },
+    { label: "Community", value: "AWS Community Builder (DevTools)" },
+    { label: "Off the clock", value: "Aspiring space DJ" },
   ],
 };
 
@@ -148,16 +153,16 @@ export const achievements = {
 export const contact = {
   heading: "Transmission",
   kicker: "CONTACT",
-  sub: "Open to internships, collabs, and good playlists.",
+  sub: "Open to collabs, good conversations, and good playlists.",
 };
 
 // Hidden "B-side" — unlocked by the Konami code. Keep these real and fun.
 export const bside = {
   facts: [
-    "Before cloud, I coordinated COVID-19 emergency response for a whole county at the Red Cross.",
-    "I once recovered an accounting firm from ransomware in 24 hours — no ransom paid.",
+    "I speak fluent command line — Bash and Python are my first instruments.",
+    "I've earned 6 AWS certifications, including the Security Specialty.",
     "One of my projects parses electricity-token SMS in English, Swahili, and Sheng.",
     "Two-time hackathon winner, and yes, I think incident response is genuinely fun.",
-    "The hint: there was never really a space DJ. There is a cloud engineer who likes a good drop.",
+    "The hint: there was never really a space DJ. There is a cloud builder who likes a good drop.",
   ],
 };

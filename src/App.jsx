@@ -122,11 +122,15 @@ export default function App() {
           <Reveal>
             <Kicker>{about.kicker}</Kicker>
             <h2 className="section__title">{about.heading}</h2>
-            <div className="about__body">
-              {about.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
+            <p className="about__intro">{about.intro}</p>
+            <dl className="about__facts">
+              {about.facts.map((f) => (
+                <div className="about__fact" key={f.label}>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
               ))}
-            </div>
+            </dl>
           </Reveal>
         </section>
 
