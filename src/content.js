@@ -20,15 +20,9 @@ export const profile = {
 export const about = {
   heading: "About",
   kicker: "SOUNDCHECK",
-  intro:
-    "I'm Lewis Sawe — a cloud, DevOps, and security enthusiast from Kenya who treats AWS like a mixing board.",
-  facts: [
-    { label: "Name", value: "Lewis Sawe" },
-    { label: "Location", value: "Kenya (EAT / UTC+3)" },
-    { label: "Education", value: "BSc Information Sciences, Moi University" },
-    { label: "Focus", value: "Cloud, DevOps, and security on AWS" },
-    { label: "Community", value: "AWS Community Builder (DevTools)" },
-    { label: "Off the clock", value: "Aspiring space DJ" },
+  paragraphs: [
+    "I'm Lewis Sawe, a cloud, DevOps, and security enthusiast from Kenya who treats AWS like a mixing board. I hold a BSc in Information Sciences from Moi University, and I'm an AWS Community Builder in the DevTools category.",
+    "My focus is building and securing things on the cloud — and this whole site runs on AWS. Off the clock, I'm an aspiring space DJ: give me a starfield and a good set and I'm happy.",
   ],
 };
 
