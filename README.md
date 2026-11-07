@@ -6,7 +6,7 @@ Theme: *Cloud by day, aspiring space DJ by night.* The site is built around an
 interactive **Space DJ deck** — a set of glowing pads that drop a sound and cue
 up each section, the way a DJ cues a track.
 
-🔗 **Live site:** `https://YOUR-AMPLIFY-URL` _(update after deploy)_
+🔗 **Live site:** https://master.d2ifoddb85pr4e.amplifyapp.com/
 🛠 **Stack:** Vite + React, deployed on **AWS Amplify Hosting**
 
 ---
